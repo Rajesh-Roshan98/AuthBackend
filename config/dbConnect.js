@@ -11,14 +11,12 @@ const connectWithRetry = async (retries = 3, delay = 1000) => {
     try {
       return await mongoose.connect(process.env.DB_URL, {
         bufferCommands: false,
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
       });
     } catch (err) {
       retries--;
       if (retries === 0) throw err;
-      console.warn(`MongoDB connection failed. Retrying in ${delay}ms...`);
-      await new Promise((res) => setTimeout(res, delay));
+      console.log(`Retrying MongoDB connection... (${retries} attempts left)`);
+      await new Promise(res => setTimeout(res, delay));
     }
   }
 };
