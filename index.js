@@ -1,27 +1,27 @@
-const express = require('express');
-const { dbConnect } = require('./config/dbConnect');
-const userrouter = require('./routes/authRouter');
-require('dotenv').config();
-const cors = require("cors");
+// const express = require('express');
+// const { dbConnect } = require('./config/dbConnect');
+// const userrouter = require('./routes/authRouter');
+// require('dotenv').config();
+// const cors = require("cors");
 
-const app = express();
+// const app = express();
 
-app.use(cors({
-    origin: "*",
-    credentials: true
-}));
+// app.use(cors({
+//     origin: "*",
+//     credentials: true
+// }));
 
-app.use(express.json());
+// app.use(express.json());
 
-app.use('/api/v1', userrouter);
+// app.use('/api/v1', userrouter);
 
-dbConnect();
+// dbConnect();
 
-if (process.env.NODE_ENV !== "production") {
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => {
-    console.log(`✅ Server is running on port ${PORT}`);
-  });
-}
+// if (process.env.NODE_ENV !== "production") {
+//   const PORT = process.env.PORT || 3000;
+//   app.listen(PORT, () => {
+//     console.log(`✅ Server is running on port ${PORT}`);
+//   });
+// }
 
-module.exports = app;
+// module.exports = app;
