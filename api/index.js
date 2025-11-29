@@ -1,14 +1,15 @@
 const express = require('express');
-const { dbConnect } = require('../config/dbConnect');
-const userrouter = require('../routes/authRouter');
 const cors = require('cors');
+const { dbConnect } = require('../config/dbConnect');
+const authRouter = require('../routes/authRouter');
 
 const app = express();
 
+// Middleware
 app.use(cors({ origin: "*", credentials: true }));
 app.use(express.json());
 
-// DB connect per request
+// Connect DB per request
 app.use(async (req, res, next) => {
   try {
     await dbConnect();
@@ -19,9 +20,12 @@ app.use(async (req, res, next) => {
 });
 
 // Routes
-app.use('/api/v1', userrouter);
+app.use('/api/v1', authRouter);
 
-// Export as serverless function
+// Fallback for undefined routes
+app.use((req, res) => res.status(404).json({ message: "Route not found" }));
+
+// Export serverless handler
 module.exports = (req, res) => {
   app(req, res);
 };

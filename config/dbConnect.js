@@ -24,9 +24,7 @@ const connectWithRetry = async (retries = 3, delay = 1000) => {
 exports.dbConnect = async () => {
   if (cached.conn) return cached.conn;
 
-  if (!cached.promise) {
-    cached.promise = connectWithRetry();
-  }
+  if (!cached.promise) cached.promise = connectWithRetry();
 
   try {
     cached.conn = await cached.promise;
