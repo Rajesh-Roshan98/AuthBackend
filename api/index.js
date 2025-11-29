@@ -27,6 +27,11 @@ app.get('/', (req, res) => {
   res.send('🚀 API is running!');
 });
 
+// Catch-all for unknown endpoints
+app.use((req, res) => {
+  res.status(404).json({ success: false, message: 'Endpoint not found', path: req.originalUrl });
+});
+
 // ✅ For Vercel serverless export
 module.exports = app;
 
