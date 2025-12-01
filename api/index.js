@@ -2,15 +2,17 @@ const serverless = require("serverless-http");
 const app = require("../index");
 const dbConnect = require("../config/dbConnect");
 
-let isConnected = false; // Prevent multiple DB reconnects
-const serverlessHandler = serverless(app);
+let isConnected = false;
 
-module.exports = async function handler(req, res) {
+const handler = async (req, res) => {
+  // Connect DB once
   if (!isConnected) {
     await dbConnect();
     isConnected = true;
-    console.log("✅ MongoDB connected inside serverless function");
+    console.log("MongoDB connected inside serverless function");
   }
-
-  return serverlessHandler(req, res);
+  // Call serverless handler
+  return serverless(app)(req, res);
 };
+
+module.exports = handler;
