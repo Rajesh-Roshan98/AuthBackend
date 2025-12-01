@@ -10,5 +10,7 @@ Router.post('/login', loginUser);
 Router.post('/logout', logoutUser);
 Router.get('/getUserDetail', auth, getUserDetail);
 Router.post('/verifyotp', verifyOtp);
+Router.get("/test", (req, res) => res.json({ success: true, msg: "Backend working!" }));
+
 
 module.exports = Router;

@@ -4,15 +4,14 @@ const dbConnect = require("../config/dbConnect");
 
 let isConnected = false;
 
-const handler = async (req, res) => {
-  // Connect DB once
+// Pre-create serverless handler
+const handler = serverless(app);
+
+module.exports = async (req, res) => {
   if (!isConnected) {
     await dbConnect();
     isConnected = true;
     console.log("MongoDB connected inside serverless function");
   }
-  // Call serverless handler
-  return serverless(app)(req, res);
+  return handler(req, res);
 };
-
-module.exports = handler;
