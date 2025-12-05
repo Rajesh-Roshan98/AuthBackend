@@ -1,11 +1,10 @@
 const app = require("../index");
 const dbConnect = require("../config/dbConnect");
 
-// Cache the database connection state
 let isConnected = false;
 
 module.exports = async (req, res) => {
-  // 1. Connect to DB if not already connected
+  
   if (!isConnected) {
     try {
       await dbConnect();
@@ -17,7 +16,5 @@ module.exports = async (req, res) => {
     }
   }
 
-  // 2. Hand off the request to Express
-  // Vercel treats the Express 'app' as a request handler function
   return app(req, res);
 };

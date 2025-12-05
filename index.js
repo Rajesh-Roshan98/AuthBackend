@@ -1,6 +1,3 @@
-// ----------------------------------------------
-// Dependencies & Config
-// ----------------------------------------------
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
@@ -11,31 +8,20 @@ const authRouter = require("./routes/authRouter");
 
 const app = express();
 
-// ----------------------------------------------
-// Middleware
-// ----------------------------------------------
 app.use(
   cors({
-    origin: "*",        // Allow all origins (change for production)
+    origin: "*",        
     credentials: true,
   })
 );
 
-app.use(express.json()); // Parse JSON body
-
-// ----------------------------------------------
-// Utility / System Routes
-// ----------------------------------------------
-
-// Prevent favicon errors
+app.use(express.json()); 
 app.get("/favicon.ico", (_, res) => res.sendStatus(204));
 
-// Root route - basic server check
 app.get("/", (_, res) => {
   res.status(200).send("API is running ✅");
 });
 
-// Health check route
 app.get("/health", (_, res) => {
   const dbStatus = mongoose.connection.readyState; // 0,1,2,3
 
@@ -54,15 +40,9 @@ app.get("/health", (_, res) => {
   });
 });
 
-// ----------------------------------------------
-// Application Routes
-// ----------------------------------------------
+
 app.use("/api/v1", authRouter);
 
-// ----------------------------------------------
-// Local Development Server
-// (Vercel ignores this block)
-// ----------------------------------------------
 if (require.main === module) {
   dbConnect()
     .then(() => {
@@ -76,7 +56,4 @@ if (require.main === module) {
     });
 }
 
-// ----------------------------------------------
-// Export App for Serverless (Vercel)
-// ----------------------------------------------
 module.exports = app;
