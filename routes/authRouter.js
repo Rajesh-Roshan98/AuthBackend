@@ -10,12 +10,11 @@ Router.post('/login', loginUser);
 Router.post('/logout', logoutUser);
 Router.get('/getUserDetail', auth, getUserDetail);
 Router.post('/verifyotp', verifyOtp);
-// 🔐 Verify Token Route (for ProtectedRoute)
 Router.get("/verify-token", auth, (req, res) => {
     res.status(200).json({
         success: true,
         valid: true,
-        user: req.user, // contains decoded token data (id, email, etc.)
+        user: req.user,
     });
 });
 
