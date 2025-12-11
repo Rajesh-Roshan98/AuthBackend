@@ -11,7 +11,7 @@ const app = express();
 app.use(
   cors({
     origin: [
-        "https://auth-frontend-alpha-ten.vercel.app",
+        "https://secure-auth-app.vercel.app",
         "http://localhost:5173", 
         "http://localhost:3000"
     ],
